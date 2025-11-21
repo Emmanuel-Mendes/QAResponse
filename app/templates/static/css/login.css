@@ -1,0 +1,18 @@
+.login-bg {
+    background-image: url("../img/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* efeitos pedidos (monocromático + moderno) */
+    filter: grayscale(100%);
+}
+
+.form-login {
+    width: 360px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 32px;
+    border-radius: 12px;
+}

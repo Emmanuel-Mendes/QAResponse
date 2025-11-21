@@ -1,0 +1,15 @@
+from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint
+
+initial_blueprint = Blueprint("home", __name__)
+
+@initial_blueprint.route("/home")
+def home():
+    if "user" not in session:
+        return redirect(url_for("login.login"))
+    
+    return render_template("base.html", user=session["user"])
+
+@initial_blueprint.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home.logout"))

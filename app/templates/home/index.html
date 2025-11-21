@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+{% block extra_styles %}
+    <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content%}
+
+<body class="d-inline-flex p-2 align-items-center py-2 bg-body-tertiary" >
+    <main class="form-signin w-200 m-auto"> 
+        <form method="POST">
+            <div class="form-floating mb-3"> 
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> 
+                <label for="floatingInput">Email</label> </div>             
+            </div>   
+            <div class="form-floating mb-3"> 
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password"> 
+                <label for="floatingPassword">Password</label> 
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" class="btn btn-primary" >Cadastrar</button>
+        </form>
+    </main>
+
+</body>
+
+{% endblock %}
