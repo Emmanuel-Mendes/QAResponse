@@ -4,55 +4,67 @@
     <title>Cadastrar</title>
 {% endblock %}
 
-{% block body_class %}
-    d-flex align-items-center justify-content-center bg-body-tertiary vh-100
+{% block extra_styles %}
+
 {% endblock %}
 
-<style>
-    .login-bg {
-        background-color: #747171;
-        background-size: cover;
-    }
-</style>
+{% block body_class %}
+    login-bg d-flex align-items-center justify-content-center vh-100    
+{% endblock %}
 
 {% block content%}
 <main class="form-signin w-25  m-2 ratio-4x3"> 
     <form method="POST">
-        <h1 class="h3 mb-2 text-center"> Cadastrar</h1>
-        <div class="form-floating my-1 border-end border-bottom"> 
-            <input type="username" class="form-control" id="floatingInput" placeholder="name@example.com"> 
+        <h1 class="h3 mb-2 text-center text-white"> Cadastrar</h1>
+        <div class="form-floating my-1 border-white"> 
+            <input type="username_create" class="form-control" id="name" placeholder="name@example.com" required> 
             <label for="floatingInput">Nome</label> </div>             
         </div>   
-        <div class="form-floating my-1 border-end border-bottom"> 
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> 
+        <div class="form-floating my-1 border-white"> 
+            <input type="email_create" class="form-control" id="email" placeholder="name@example.com"> 
             <label for="floatingInput">Email</label> </div>             
         </div>   
-        <div class="form-floating my-1 border-end border-bottom"> 
-            <input type="phone" class="form-control" id="floatingInput" placeholder="name@example.com"> 
+        <div class="form-floating my-1 border-white"> 
+            <input type="phone_create" class="form-control" id="phone" placeholder="name@example.com"> 
             <label for="floatingInput">Telefone</label> </div>             
         </div>   
-        <div class="form-floating my-1 border-end border-bottom"> 
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"> 
+        <div class="form-floating my-1 border-white"> 
+            <input type="password_create" class="form-control" id="passoword" placeholder="Password"> 
             <label for="floatingPassword">Senha</label> 
             </div>
         </div>  
-        <div class="form-floating my-1 border-end border-bottom"> 
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"> 
+        <div class="form-floating my-1 border-white"> 
+            <input type="password_confirm_create" class="form-control" id="passoword_confirm" placeholder="Password"> 
             <label for="floatingPassword">Confirme a senha</label> 
             </div>
         </div>        
 
-        <div class="d-grid gap-2 col-6 mx-auto co my-3">
+        <div class="d-grid gap-2 col-6 mx-auto co my-2">
             <button type="submit" class="btn btn-primary w-100 py-2">Cadastrar</button>
         </div>
 
     </form>
-    <form action="{{ url_for('login.login') }}" method="POST">        
-        <div class="d-grid gap-2 col-6 mx-auto co">
-        <button type="submit" class="btn btn-secundary w-100 py-2 border-black">Login</button>
+    <form action="{{ url_for('login.login') }}" method="GET">        
+        <div class="d-grid gap-1 col-6 mx-auto my-2">
+        <button type="submit" class="btn btn-secundary w-100 py-2 border-white text-white">Login</button>
         </div>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true)%}
+        {% if messages %}
+            {% for category, message in messages%}
+                <div aria-live="polite" aria-atomic="true" class="border-red">
+                    <div class=" toast-container position-fixed bottom-0 end-0 p-3 border-white" id="toastPlacement">  
+                        <strong class="me-auto text-white">Erro ao cadastrar</strong>                  
+                        <div class="toast-header alert-info" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="alert-{{ message if category == 'error' else message}}">
+                                <div class="me-auto text-white">{{message}}</div>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+            {% endfor%}
+        {% endif%}
+    {% endwith%}
 </main>
-
 
 {% endblock %}
