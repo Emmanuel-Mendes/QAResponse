@@ -14,26 +14,28 @@
 
 
 {% block content%}
-<main class="login-container form-signin w-25 m-2 ratio-4x3"> 
+<main style="min-width: 400px; min-height: auto; margin-left: calc(100% - 500px); margin-right: 200px;  margin-heigh: 200px; margin-bottom: center; padding: 10px; max-width: 1220px;" class="login-container form-signin w-25  border-1 border-white border rounded" > 
+
+    
     <form method="POST">
-        <h1 class="h3 mb-2 text-center text-white"> Acessar</h1>
-        <div class="form-floating my-1 border-white"> 
+        <h1 class="h3 mb-2 text-center my-3  mx-auto w-75  text-white rounded-1"> Acessar</h1>
+        <div class="form-floating my-2 mx-auto w-75 align-items-center mw-100 border-white align-content-center align-middle"> 
             <input name='email' type="email" class="form-control" id="email" placeholder="name@example.com"> 
             <label for="floatingInput">Email</label> </div>             
         </div>   
-        <div class="form-floating my-1 border-white"> 
+        <div class="form-floating my-1 mx-auto w-75 border-white"> 
             <input name='password'  type="password" class="form-control" id="password" placeholder="Password"> 
             <label for="floatingPassword">Senha</label> 
             </div>
         </div>
-        <div>
-            <a href="{{ url_for('recover_password.recover_password') }}" class="link-primary link-offset-2 link-underline-opacity-50 link-underline-opacity-50-hover">
+        <div class="my-2 mx-auto w-75 align-items-center mw-100 border-white align-content-center align-middle">
+            <a href="{{ url_for('recover_password.recover_password') }}" class=" link-primary link-offset-2 link-underline-opacity-50-hover ">
                 Esqueceu a senha?
             </a>
 
-            <div class="form-check text-start my-2">
-                <input type="checkbox" class="form-check-input border-dark-subtle" value="remember-me" id="checkDefault">
-                <label class="form-check-label text-white" for="checkDefault">Lembrar?</label>            
+            <div class="form-check text-start my-3 ">
+                <input type="checkbox" class="form-check-input border-dark-subtle " value="remember-me" id="checkDefault">
+                <label class="form-check-label text-white " for="checkDefault">Lembrar?</label>            
             </div>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto co">
@@ -41,7 +43,7 @@
         </div>
     </form>
     <form action="{{ url_for('create.create_user') }}" method="GET">        
-        <div class="d-grid gap-2 col-6 mx-auto my-2 co">
+        <div class="d-grid gap-2 col-6 mx-auto my-4 co">
         <button type="submit" class="btn btn-secundary w-100 py-2 border-white text-white">Cadastrar</button>
         </div>
     </form>

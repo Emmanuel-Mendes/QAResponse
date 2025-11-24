@@ -12,13 +12,13 @@
     {% block extra_css%}{% endblock %}
     <style>
         .background {
-            background-color: rgb(73, 73, 73);
-            background-image: url('/app/templates/static/img/background.png');
+            background-color: rgba(10, 10, 10, 0.842);
         }
     </style>
     
 </head>    
 <body class="background {%block body_class %}{% endblock %}">
+    <img src="fundo.jpg" alt="">
     {% block content %}{% endblock %}
 </body>
 </html>

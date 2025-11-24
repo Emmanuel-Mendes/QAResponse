@@ -1,8 +1,8 @@
 from flask import Flask, redirect, url_for
-from controllers.auth.login import login_blueprint
-from controllers.auth.create_user import create_blueprint
-from controllers.blog import initial_blueprint
-from controllers.auth.recover_password import recover_password_blueprint
+from server.controllers.auth.login import login_blueprint
+from server.controllers.auth.create_user import create_blueprint
+from server.controllers.blog import initial_blueprint
+from server.controllers.auth.recover_password import recover_password_blueprint
 
 
 def creat_app() -> Flask:

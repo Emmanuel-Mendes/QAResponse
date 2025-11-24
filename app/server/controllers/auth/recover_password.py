@@ -11,9 +11,8 @@ def recover_password_request():
     
     email = request.form.get('email_recover')
     
-    print(email)
-    
-    email_is_none = email is None or email.strip == ''
+    print("Email: ", email)        
+    email_is_none = email is None or email.strip() == ''  
     
     if email_is_none:        
         flash("Email não pode ser vazio", "error")
