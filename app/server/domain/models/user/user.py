@@ -1,12 +1,11 @@
 from datetime import datetime
 import uuid
 
-from utils.user_utils import validate_email
-from enum.enum_user import User_type
+from ....utils.user_utils import *
+from ....enum.enum_user import User_type
 
 class User:
     def __init__(self,
-                 _id,
                  _name: str,
                  _password: str,
                  _email: str,
@@ -18,7 +17,6 @@ class User:
                  _user_type: User_type = User_type.normal.value,                 
                  ):
         
-        self.id = id
         self.name = _name
         self.password = _password
         self.email = _email
@@ -85,6 +83,7 @@ class User:
             raise ValueError("Error no campo email")         
         
     # --- Getter and Setter status_user --- #  
+    
     @property    
     def status_user(self):
         return self.phone
