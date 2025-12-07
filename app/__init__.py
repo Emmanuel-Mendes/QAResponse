@@ -1,18 +1,18 @@
 from flask import Flask, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from server.domain.models.user.user_repository import UserRepository
 
+from server.domain.models.user.user_repository import UserRepository
 from server.controllers.auth.login import login_blueprint
 from server.controllers.auth.create_user import create_blueprint
 from server.controllers.blog import initial_blueprint
 from server.controllers.auth.recover_password import recover_password_blueprint
+from server.controllers.home.home import home_blueprint
 from server.database.user_data_source import db
 
 
 
 def creat_app() -> Flask:
     try:
-        app = Flask(__name__)  
+        app = Flask(__name__,static_folder='templates/static',)  
         
         app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"   
 
@@ -24,6 +24,7 @@ def creat_app() -> Flask:
         app.register_blueprint(create_blueprint)
         app.register_blueprint(initial_blueprint)
         app.register_blueprint(recover_password_blueprint)
+        app.register_blueprint(home_blueprint)
         
         
         with app.app_context():

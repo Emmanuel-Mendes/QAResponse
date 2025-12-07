@@ -11,10 +11,10 @@ class User:
                  _email: str,
                  _phone: str,
                  _status_user: bool = False,
-                 _user_id: str = uuid.uuid4(),
-                 _data_created: datetime = datetime.now(),
-                 _data_update: datetime = datetime.now(),
-                 _user_type: User_type = User_type.normal.value,                 
+                 _user_id: str = "",
+                 _data_created: datetime = "",
+                 _data_update: datetime = "",
+                 _user_type: User_type = None,                 
                  ):
         
         self.name = _name
@@ -26,12 +26,11 @@ class User:
         self.data_created = _data_created
         self.data_update = _data_update
         self.user_type = _user_type
-      
-      
+       
     # --- Getter and Setter name --- #  
     @property    
     def name(self):
-        return self.name
+        return getattr(self.name)
     
     @name.setter
     def name(self, name_value:str):
@@ -54,7 +53,8 @@ class User:
     @password.setter
     def password(self, password_value:str):
         try:
-            if not password_value or password_value < 3:
+            print("Chamou esse método")
+            if not password_value or password_value.__len__ < 3:
                 raise ValueError("Tamanho inválido para o campo password")
             else:
                 self.password = password_value                   
@@ -98,18 +98,33 @@ class User:
         except TypeError:
             raise ValueError("Tipo inválido para status")
         except Exception:
-            raise ValueError("Error no campo status")   
-        
+            raise ValueError("Error no campo status")  
+         
+    # --- Getter and Setter user_id --- #  
+    
+    @property    
+    def user_id(self):
+        return self.phone
+    
+    @user_id.setter
+    def user_id(self):
+        try:
+            self.user_id = uuid.uuid4()             
+        except TypeError:
+            raise ValueError("Tipo inválido para status")
+        except Exception:
+            raise ValueError("Error no campo status")    
+               
     # --- Getter and Setter data_created --- #  
     @property    
     def data_created(self):
         return self.data_created
     
     @data_created.setter
-    def data_created(self, data_created_value:str):
+    def data_created(self, data_created_value: datetime = ""):
         try:
             if not data_created_value:
-                raise ValueError("Campo vazio")
+                self.data_created = datetime = datetime.now()
             else:
                 self.data_created = data_created_value                  
         except TypeError:
@@ -124,10 +139,10 @@ class User:
         return self.data_update
     
     @data_update.setter
-    def data_update(self, data_update_value:str):
+    def data_update(self, data_update_value: datetime = ""):
         try:
             if not data_update_value:
-                raise ValueError("Campo vazio")
+                self.data_update = datetime.now()
             else:
                 self.data_update = data_update_value                   
         except TypeError:
@@ -144,7 +159,7 @@ class User:
     def user_type(self, user_type_value:User_type):
         try:
             if not user_type_value:
-                raise ValueError("Campo vazio")
+                self.user_type = User_type.normal
             else:
                 self.data_update = user_type_value                   
         except TypeError:
@@ -152,3 +167,5 @@ class User:
         except Exception:
             raise ValueError("Error para atualização da data")  
              
+    def __repr__(self):
+        return f'<User {self.username}>'

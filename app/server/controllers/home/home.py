@@ -1,20 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint, Response
 
-login_blueprint = Blueprint("login", __name__)
+home_blueprint = Blueprint("home", __name__)
 
 # Usuário de exemplo (apenas para fins didáticos)
 
-@login_blueprint.route("/login", methods=["GET"])
-def login():  
-    return render_template("auth/login.html")
+@home_blueprint.route("/home", methods=["GET"])
+def home():  
+    return render_template("home/home.html")
 
-@login_blueprint.route("/login", methods=["POST"])
-def login_request():
+@home_blueprint.route("/home", methods=["POST"])
+def homerequest():
     if request.method == "POST":        
         email = request.form.get("email")
         password = request.form.get("password")       
-        
-         
                 
         email_is_none = email is None or email.strip() == ''  
         password_is_none = password is None or password.strip() == ''   

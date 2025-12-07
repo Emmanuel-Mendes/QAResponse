@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Acessar</title>
+{% endblock %}
+
+{% block extra_styles %}
+
+{% endblock %}
+
+{% block body_class %}
+    login-bg d-flex align-items-center justify-content-center vh-100    
+{% endblock %}
+
+
+{% block content%}
+<main style="min-width: 400px; min-height: auto; margin-left: center; margin-right: center; margin-bottom: center; padding: 10px; max-width: 1220px;" class="login-container form-signin bg-transparent w-25 rounded-3" > 
+    <div>
+        <h1>
+            Chegou aqui
+        </h1>
+    </div>
+    
+</div>
+    {% with messages = get_flashed_messages(with_categories=true)%}
+        {% if messages %}
+            {% for category, message in messages%}
+                <div aria-live="polite" aria-atomic="true" class="border-black">
+                    <div class=" toast-container position-fixed bottom-0 end-0 p-3 border-black" id="toastPlacement">  
+                        <strong class="me-auto text-black">Login Erro</strong>                  
+                        <div class="toast-header alert-info text-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="alert-{{ message if category == 'error' else message}}">
+                                <div class="me-auto text-danger">{{message}}</div>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+            {% endfor%}
+        {% endif%}
+    {% endwith%}
+</main>
+
+
+{% endblock %}
