@@ -1,14 +1,57 @@
-.venv/
-
-*.pyc
+# --- Python ---
 __pycache__/
-
-instance/
-
-.pytest_cache/
-.coverage
-htmlcov/
-
-dist/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
+.installed.cfg
+*.egg
+
+# --- Ambiente Virtual (Essencial) ---
+venv/
+ENV/
+env/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Banco de Dados (PostgreSQL / Local) ---
+# Se você baixar dumps do banco ou tiver logs locais
+*.sql
+*.dump
+*.log
+.pgpass
+
+# --- Variáveis de Ambiente (Segurança Crítica) ---
+# Nunca envie suas senhas e SECRET_KEY para o Git
+.env
+.flaskenv
+instance/
+.webassets-cache
+
+# --- IDEs e Editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Estáticos e Bootstrap (Opcional) ---
+# Geralmente mantemos os arquivos do Bootstrap, mas ignoramos caches de compiladores Sass/Less
+.sass-cache/
+*.css.map
+*.js.map
