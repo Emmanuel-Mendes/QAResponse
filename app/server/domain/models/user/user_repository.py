@@ -3,12 +3,14 @@ from ....helper.response import Response
 from ....database.user_data_source import db as database
 from sqlalchemy import ExceptionContext
 from ....enum.enum_user import User_status
+from flask_login import UserMixin
+import uuid
 
 class UserRepository(database.Model):
     
     __tablename__ = "users"   
     
-    id = database.Column(database.Integer, primary_key=True)
+    id = database.Column(database.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = database.Column(database.String(50), nullable=True)
     password = database.Column(database.String(200), nullable=True)
     email = database.Column(database.String(75), unique=True, nullable=True)
@@ -45,18 +47,21 @@ class UserService:
             return Response.error(
                 error = "Usuário já cadastrado",
                 data  = User_status.user_created.value
-            )
-            
+            )            
         except Exception as e:
             return Response.error(
-                error="Verifique os campos preenchidos")
+                error="Verifique os campos preenchidos"
+            )
                 
 
     @classmethod
-    def verifty_user_by_email(self, user: User.email) -> Response:
-        print(user)
-        return False
-    
+    def verifty_user_by_email(self, user: User) -> Response:
+        getUser = UserRepository()
+        user_get = getUser.query.filter_by(email = user).first()
+        if(user_get is not None):
+            return Response.success(data = user_get) 
+        else: 
+            return Response.error(error="Usuário ou senha errado")
     @classmethod
     def createUser(self, user: User) -> Response:        
         return False

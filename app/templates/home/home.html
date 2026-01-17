@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_index.html' %}
 
 {% block title %}
-    <title>Acessar</title>
+    <title>Home - GitQa</title>
 {% endblock %}
 
 {% block extra_styles %}
@@ -9,18 +9,75 @@
 {% endblock %}
 
 {% block body_class %}
-    login-bg d-flex align-items-center justify-content-center vh-100    
+     
 {% endblock %}
 
 
 {% block content%}
-<main style="min-width: 400px; min-height: auto; margin-left: center; margin-right: center; margin-bottom: center; padding: 10px; max-width: 1220px;" class="login-container form-signin bg-transparent w-25 rounded-3" > 
-    <div>
-        <h1>
-            Chegou aqui
-        </h1>
-    </div>
-    
+<div class="px-3 py-2 text-bg-dark border-bottom"> 
+    <div class="container"> 
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 
+            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"> 
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap">
+
+                    </use>
+                </svg> 
+            </a> 
+            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"> 
+                <li> 
+                    <a href="#" class="nav-link text-secondary"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#home">
+
+                            </use>
+                        </svg>
+                        Inicio
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#speedometer2">
+
+                            </use>
+                        </svg>
+                        Repositório
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#table">
+
+                            </use>
+                        </svg>
+                        Workspaces
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#people-circle">
+
+                            </use>
+                        </svg>
+                        Dashboard
+                    </a> 
+                </li> 
+            </ul> 
+        </div> 
+    </div> 
+</div>
+
+
+
+<a href="/home/project/create"
+   class="btn btn-dark d-flex align-items-center justify-content-center shadow-lg"
+   style="position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; border-radius: 50%; font-size: 24px; z-index: 1000;">
+    <i class="fa-solid fa-plus"></i>
+</a>
+
 </div>
     {% with messages = get_flashed_messages(with_categories=true)%}
         {% if messages %}
@@ -38,7 +95,4 @@
             {% endfor%}
         {% endif%}
     {% endwith%}
-</main>
-
-
 {% endblock %}

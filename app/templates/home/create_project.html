@@ -1,0 +1,101 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+    <title>Novo repositório - GitQa</title>
+{% endblock %}
+
+{% block extra_styles %}
+
+{% endblock %}
+
+{% block body_class %}
+     
+{% endblock %}
+
+
+{% block content%}
+<div class="px-3 py-2 text-bg-dark border-bottom"> 
+    <div class="container"> 
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 
+            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"> 
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap">
+
+                    </use>
+                </svg> 
+            </a> 
+            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"> 
+                <li> 
+                    <a href="/home" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#home">
+
+                            </use>
+                        </svg>
+                        Home
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-secondary"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#speedometer2">
+
+                            </use>
+                        </svg>
+                        Projetos
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#table">
+
+                            </use>
+                        </svg>
+                        Orders
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#grid">
+                                
+                            </use>
+                        </svg>
+                        Products
+                    </a> 
+                </li> 
+                <li> 
+                    <a href="#" class="nav-link text-white"> 
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
+                            <use xlink:href="#people-circle">
+
+                            </use>
+                        </svg>
+                        Customers
+                    </a> 
+                </li> 
+            </ul> 
+        </div> 
+    </div> 
+
+</div>
+
+<div class=" align-content-center">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); " aria-label="breadcrumb" class=" breadcrumb bg-transparent align-content-center text-body text-center text-transparent">
+        <ol class="breadcrumb bg-transparent align-content-center text-center">
+            <li class="breadcrumb-item text-center"><a href="{{ url_for('home.home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Novo repositório</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

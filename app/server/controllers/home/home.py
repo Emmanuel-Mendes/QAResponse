@@ -1,33 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint, Response
+from ..auth.login import login_required
+from ...controllers.components.error import internal_server_error
 
 home_blueprint = Blueprint("home", __name__)
 
-# Usuário de exemplo (apenas para fins didáticos)
-
 @home_blueprint.route("/home", methods=["GET"])
+@login_required
 def home():  
-    return render_template("home/home.html")
+    try:
+        if session.get('user_id') is not None:
+            return render_template("home/home.html")
+        else:         
+            return redirect(url_for('login.login'))   
+    except Exception as e:
+        internal_server_error(e=e)
+    except RuntimeError as e:
+        print("Caiu nesse error: ", e)
 
 @home_blueprint.route("/home", methods=["POST"])
-def homerequest():
-    if request.method == "POST":        
-        email = request.form.get("email")
-        password = request.form.get("password")       
-                
-        email_is_none = email is None or email.strip() == ''  
-        password_is_none = password is None or password.strip() == ''   
-                
-        if email_is_none and password_is_none == False:
-            flash("Email não pode ser vazio", "error")
-            return redirect(url_for('login.login'))
-        if email_is_none == False and password_is_none:
-            flash("Senha não pode ser vazio", "error")
-            return redirect(url_for('login.login'))
-        if email_is_none and password_is_none:
-            flash("Email e Senha não podem ser vazios", "error")
-            return redirect(url_for('login.login'))        
-        else:
-            return redirect(url_for("home.home"))
-    
-    return render_template("auth/login.html")
-
+@login_required
+def home_request(): 
+    print("Post: ")
+    print(session.get)      
