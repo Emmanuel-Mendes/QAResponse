@@ -4,19 +4,20 @@ from ..auth.login import login_required
 
 projects_blueprint = Blueprint("projects", __name__)
 
+
 @projects_blueprint.route("/projects", methods=["GET"])
 @login_required
-def projects_get():  
+def projects_get():
     try:
-        if session.get('user_id') is not None:
-                          
+        if session.get("user_id") is not None:
             return render_template("home/home.html")
-        else:         
-            return redirect(url_for('login.login')) 
+        else:
+            return redirect(url_for("login.login"))
     except Exception as e:
-        print("Exception: ",e)
+        print("Exception: ", e)
+
 
 @projects_blueprint.route("/projects", methods=["POST"])
-def projects(): 
+def projects():
     print("Post: ")
-    print(session.get)      
+    print(session.get)

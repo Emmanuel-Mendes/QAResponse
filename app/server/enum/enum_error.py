@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Error(Enum):
     USER_NOT_CREATED = 1
     USER_ALREADY_CREATED = 2

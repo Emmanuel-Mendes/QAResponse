@@ -17,34 +17,37 @@ load_dotenv()
 
 def create_app() -> Flask:
     try:
-        
-        app = Flask(__name__,static_folder='templates/static',)  
+        app = Flask(
+            __name__,
+            static_folder="templates/static",
+        )
         bcrypt.init_app(app=app)
-        
-        app.config.from_object(Config)   
-        
-        db.init_app(app=app)        
-            
+
+        app.config.from_object(Config)
+
+        db.init_app(app=app)
+
         app.register_blueprint(login_blueprint)
         app.register_blueprint(create_blueprint)
         app.register_blueprint(initial_blueprint)
         app.register_blueprint(recover_password_blueprint)
-        app.register_blueprint(home_blueprint)        
-        app.register_blueprint(new_project_blueprint)  
-        app.register_blueprint(error_blueprint)    
-        
+        app.register_blueprint(home_blueprint)
+        app.register_blueprint(new_project_blueprint)
+        app.register_blueprint(error_blueprint)
+
         with app.app_context():
             db.create_all()
-        
+
         @app.route("/")
         def index():
             return redirect(url_for("login.login"))
-        
+
     except Exception as e:
         print("Exception: ", e)
     finally:
         return app
-    
+
+
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
