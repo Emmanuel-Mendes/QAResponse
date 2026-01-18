@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for
 
-from server.domain.models.user.user_repository import UserRepository
 from server.controllers.auth.login import login_blueprint
 from server.controllers.auth.create_user import create_blueprint
 from server.controllers.blog import initial_blueprint

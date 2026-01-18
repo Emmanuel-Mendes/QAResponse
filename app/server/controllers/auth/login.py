@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint, Response
-from flask_bcrypt import generate_password_hash, check_password_hash
+from flask import render_template, request, redirect, url_for, flash, session, Blueprint
 from functools import wraps
 
 
 from ..components.error import internal_server_error
-from ...domain.models.user.user_repository import UserRepository, UserService
+from ...domain.models.user.user_repository import UserService
 from ...domain.service.user_service import UserService as userServiceDto
 
 login_blueprint = Blueprint("login", __name__)
@@ -35,10 +34,10 @@ def login_request():
             email_is_none = email is None or email.strip() == ''  
             password_is_none = password is None or password.strip() == ''   
                     
-            if email_is_none and password_is_none == False:
+            if email_is_none and not password_is_none:
                 flash("Email não pode ser vazio", "error")
                 return redirect(url_for('login.login'))
-            if email_is_none == False and password_is_none:
+            if not email_is_none and password_is_none:
                 flash("Senha não pode ser vazio", "error")
                 return redirect(url_for('login.login'))
             if email_is_none and password_is_none:
@@ -60,7 +59,6 @@ def login_request():
                     flash(verify_user.error, "error")
                     return redirect(url_for('login.login'))   
                         
-    except Exception as e:
-        print(e)
-        flash(f"Erro ao realizar login", "error")
+    except Exception:
+        flash("Erro ao realizar login", "error")
         return redirect(url_for('login.login'))

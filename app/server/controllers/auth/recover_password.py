@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint, Response
+from flask import render_template, request, redirect, url_for, flash, Blueprint
 
 recover_password_blueprint = Blueprint("recover_password", __name__)
 

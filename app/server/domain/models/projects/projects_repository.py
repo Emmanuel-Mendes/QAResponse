@@ -1,7 +1,6 @@
 from .projects import User
 from ....helper.response import Response
 from ....database.user_data_source import db as database
-from sqlalchemy import ExceptionContext
 from ....enum.enum_user import User_status
 
 class UserRepository(database.Model):
@@ -41,12 +40,12 @@ class UserService:
             database.session.commit()
             return Response.success(data = User_status.user_created.value)  
         
-        except BaseException as e:
+        except BaseException:
             return Response.error(
                 error = "Usuário já cadastrado",
                 data  = User_status.user_created.value
             )            
-        except Exception as e:
+        except Exception:
             return Response.error(
                 error="Verifique os campos preenchidos"
             )

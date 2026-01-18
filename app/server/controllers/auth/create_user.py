@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, Blueprint
+from flask import render_template, request, redirect, url_for, flash, session, Blueprint
 from ...domain.models.user.user import User
-from ...domain.models.user.user_repository import UserRepository, UserService
+from ...domain.models.user.user_repository import UserService
 from ...enum.enum_user import User_type, User_status
 from datetime import datetime
 from flask_bcrypt import generate_password_hash
 import uuid
-import time
 
 create_blueprint = Blueprint("create", __name__)
 
@@ -64,7 +63,7 @@ def create_user():
                     else:                      
                         flash(insert_user.error, "error")
                         return redirect(url_for('create.create_user'))
-                except Exception as e:
+                except Exception:
                     flash(insert_user.error, "error")
                     return redirect(url_for('create.create_user'))
                     

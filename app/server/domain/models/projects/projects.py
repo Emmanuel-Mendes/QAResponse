@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 
-from ....utils.user_utils import *
+from ....utils.user_utils import validate_email
 from ....enum.enum_user import User_type
 
 class User:
@@ -118,7 +118,7 @@ class User:
     def data_created(self, data_created_value: datetime = ""):
         try:
             if not data_created_value:
-                self.data_created = datetime = datetime.now()
+                self.data_created = datetime.now()
             else:
                 self.data_created = data_created_value                  
         except TypeError:
