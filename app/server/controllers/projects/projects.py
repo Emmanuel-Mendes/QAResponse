@@ -1,6 +1,9 @@
-from flask import render_template, redirect, url_for, session, Blueprint
+"""
+project rounting
+"""
+from flask import Blueprint, redirect, render_template, session, url_for
 
-from ..auth.login import login_required
+from app.server.controllers.auth.login import login_required
 
 projects_blueprint = Blueprint("projects", __name__)
 
@@ -8,16 +11,18 @@ projects_blueprint = Blueprint("projects", __name__)
 @projects_blueprint.route("/projects", methods=["GET"])
 @login_required
 def projects_get():
-    try:
-        if session.get("user_id") is not None:
-            return render_template("home/home.html")
-        else:
-            return redirect(url_for("login.login"))
-    except Exception as e:
-        print("Exception: ", e)
+    """
+    Docstring for projects_get
+    """
+    if session.get("user_id") is not None:
+        return render_template("home/home.html")
+    return redirect(url_for("login.login"))
 
 
 @projects_blueprint.route("/projects", methods=["POST"])
 def projects():
+    """
+    Docstring for projects
+    """
     print("Post: ")
     print(session.get)

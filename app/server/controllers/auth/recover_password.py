@@ -1,15 +1,24 @@
-from flask import render_template, request, redirect, url_for, flash, Blueprint
+"""
+External imports
+"""
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 recover_password_blueprint = Blueprint("recover_password", __name__)
 
 
 @recover_password_blueprint.route("/recover", methods=["GET"])
 def recover_password():
+    """
+    Docstring for recover_password
+    """
     return render_template("auth/recover_password.html")
 
 
 @recover_password_blueprint.route("/recover", methods=["POST"])
 def recover_password_request():
+    """
+    Docstring for recover_password_request
+    """
     email = request.form.get("email_recover")
 
     print("Email: ", email)

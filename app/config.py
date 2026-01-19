@@ -1,12 +1,23 @@
+"""
+External imports
+"""
+
+import dataclasses
 import os
-from dotenv import load_dotenv
 import secrets
 from datetime import timedelta
+
+from dotenv import load_dotenv
 
 load_dotenv()
 
 
+@dataclasses.dataclass
 class Config:
+    """
+    Docstring for Config
+    """
+
     DB_USER = os.environ.get("DB_USER")
     DB_PASSWORD = os.environ.get("DB_PASSWORD")
     DB_NAME = os.environ.get("DB_NAME")

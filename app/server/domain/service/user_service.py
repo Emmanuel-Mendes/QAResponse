@@ -1,22 +1,43 @@
-from ...helper.response import Response
-from extensions import bcrypt
+"""
+Docstring for app.server.domain.service.user_service
+"""
+
+from app.extensions import bcrypt
+from app.server.helper.response import Response
 
 
 class UserService:
-    def set_password_cript(self, password) -> Response:
-        if password < 8:
-            return Response.error("Tamanho da senha inferior a suportada")
-        else:
-            return Response.success()
+    """
+    Docstring for UserService
+    """
 
     @classmethod
-    def verify_password_check(self, hash, passoword) -> Response:
-        try:
-            response = bcrypt.check_password_hash(password=passoword, pw_hash=hash)
-            if response:
-                return Response.success(data="")
-            else:
-                return Response.error(error="Usuário ou senha inválido")
-        except Exception as e:
-            print(e)
-            return Response.error(error="Email ou senha inválidos")
+    def set_password_cript(cls, password) -> Response:
+        """
+        Docstring for set_password_cript
+
+        :param self: Description
+        :param password: Description
+        :return: Description
+        :rtype: Response
+        """
+        if password < 8:
+            return Response.error("Tamanho da senha inferior a suportada")
+
+        return Response.success()
+
+    @classmethod
+    def verify_password_check(cls, hash_password, passoword) -> Response:
+        """
+        Docstring for verify_password_check
+
+        :param self: Description
+        :param hash: Description
+        :param passoword: Description
+        :return: Description
+        :rtype: Response
+        """
+        response = bcrypt.check_password_hash(password=passoword, pw_hash=hash_password)
+        if response:
+            return Response.success(data="success")
+        return Response.error(error="Usuário ou senha inválido")

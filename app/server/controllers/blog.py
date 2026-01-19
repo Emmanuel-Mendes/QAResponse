@@ -1,3 +1,4 @@
+
 from flask import render_template, redirect, url_for, session, Blueprint
 
 initial_blueprint = Blueprint("blog", __name__)
@@ -15,3 +16,4 @@ def blog():
 def logout():
     session.clear()
     return redirect(url_for("home.logout"))
+

@@ -1,12 +1,23 @@
+"""
+User repository
+"""
+
 import uuid
 
-from ....database.user_data_source import db as database
-from ....enum.enum_user import User_status
-from ....helper.response import Response
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.server.database.user_data_source import db as database
+from app.server.enum.enum_user import UserStatus
+from app.server.helper.response import Response
+
 from .user import User
 
 
 class UserRepository(database.Model):
+    """
+    Docstring for UserRepository
+    """
+
     __tablename__ = "users"
 
     id = database.Column(
@@ -24,8 +35,21 @@ class UserRepository(database.Model):
 
 
 class UserService:
+    """
+    Docstring for UserService
+    """
+
     @classmethod
-    def add_user(self, user_request: User) -> Response:
+    def add_user(cls, user_request: User) -> Response:
+        """
+        Docstring for add_user
+
+        :param self: Description
+        :param user_request: Description
+        :type user_request: User
+        :return: Description
+        :rtype: Response
+        """
         try:
             add_user = UserRepository()
 
@@ -41,28 +65,24 @@ class UserService:
 
             database.session.add(instance=add_user)
             database.session.commit()
-            return Response.success(data=User_status.user_created.value)
-
-        except BaseException:
-            return Response.error(
-                error="Usuário já cadastrado", data=User_status.user_created.value
-            )
-        except Exception:
-            return Response.error(error="Verifique os campos preenchidos")
+            return Response.success(data=UserStatus.USER_CREATED.value)
+        except SQLAlchemyError:
+            return Response.error(error="Usuário já cadastrado")
 
     @classmethod
-    def verifty_user_by_email(self, user: User) -> Response:
-        getUser = UserRepository()
-        user_get = getUser.query.filter_by(email=user).first()
+    def verifty_user_by_email(cls, user: User) -> Response:
+        """
+        Docstring for verifty_user_by_email
+
+        :param self: Description
+        :param user: Description
+        :type user: User
+        :return: Description
+        :rtype: Response
+        """
+        get_user = UserRepository()
+        user_get = get_user.query.filter_by(email=user).first()
         if user_get is not None:
             return Response.success(data=user_get)
-        else:
-            return Response.error(error="Usuário ou senha errado")
 
-    @classmethod
-    def createUser(self, user: User) -> Response:
-        return False
-
-    @classmethod
-    def deleteUser(self, user: User) -> Response:
-        return False
+        return Response.error(error="Usuário ou senha errado")

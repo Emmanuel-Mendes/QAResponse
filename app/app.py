@@ -1,53 +1,76 @@
-from flask import Flask, redirect, url_for
+"""
+External imports
+"""
 
-from server.controllers.auth.login import login_blueprint
-from server.controllers.auth.create_user import create_blueprint
-from server.controllers.blog import initial_blueprint
-from server.controllers.auth.recover_password import recover_password_blueprint
-from server.controllers.home.home import home_blueprint
-from server.controllers.home.create_project import new_project_blueprint
-from server.controllers.components.error import error_blueprint
-from server.database.user_data_source import db
-from extensions import bcrypt
+import logging
+
 from dotenv import load_dotenv
-from config import Config
+from flask import Flask, redirect, url_for
+from sqlalchemy.exc import SQLAlchemyError
 
+from app.config import Config
+from app.extensions import bcrypt
+from app.server.database.user_data_source import db
+
+# Carrega as variáveis de ambiente antes de tudo
 load_dotenv()
 
 
 def create_app() -> Flask:
+    # pylint: disable=import-outside-toplevel
+    """
+    Factory para criação do Flask App
+    """
+    app_setup = Flask(
+        __name__,
+        static_folder="templates/static",
+    )
+
+    # 1. Configuração do App
+    app_setup.config.from_object(Config)
+
+    # 2. Inicialização de Extensões
+    bcrypt.init_app(app_setup)
+    db.init_app(app_setup)
+
+    # 3. Importação e Registro de Blueprints
+    # Usamos importação local para evitar Circular Imports
     try:
-        app = Flask(
-            __name__,
-            static_folder="templates/static",
+        from app.server.controllers.auth.create_user import create_blueprint
+        from app.server.controllers.auth.login import login_blueprint
+        from app.server.controllers.auth.recover_password import (
+            recover_password_blueprint,
         )
-        bcrypt.init_app(app=app)
+        from app.server.controllers.blog import initial_blueprint
+        from app.server.controllers.components.error import error_blueprint
+        from app.server.controllers.home.create_project import new_project_blueprint
+        from app.server.controllers.home.home import home_blueprint
 
-        app.config.from_object(Config)
+        app_setup.register_blueprint(login_blueprint)
+        app_setup.register_blueprint(create_blueprint)
+        app_setup.register_blueprint(initial_blueprint)
+        app_setup.register_blueprint(recover_password_blueprint)
+        app_setup.register_blueprint(home_blueprint)
+        app_setup.register_blueprint(new_project_blueprint)
+        app_setup.register_blueprint(error_blueprint)
 
-        db.init_app(app=app)
+    except ImportError as import_error:
+        print(f"Erro crítico ao importar Blueprints: {import_error}")
+        raise import_error
 
-        app.register_blueprint(login_blueprint)
-        app.register_blueprint(create_blueprint)
-        app.register_blueprint(initial_blueprint)
-        app.register_blueprint(recover_password_blueprint)
-        app.register_blueprint(home_blueprint)
-        app.register_blueprint(new_project_blueprint)
-        app.register_blueprint(error_blueprint)
-
-        with app.app_context():
+    # 4. Contexto do Banco de Dados
+    with app_setup.app_context():
+        # IMPORTANTE: Importe seus modelos aqui para o SQLAlchemy encontrá-los
+        # Altere para o caminho correto onde seus Models (User, etc) estão
+        try:
             db.create_all()
+        except SQLAlchemyError as sql_error:
+            logging.exception(sql_error)
 
-        @app.route("/")
-        def index():
-            return redirect(url_for("login.login"))
+    # 5. Rota Principal
+    @app_setup.route("/")
+    def index():
+        # Verifique se o nome do blueprint é 'login' e a função é 'login'
+        return redirect(url_for("login.login"))
 
-    except Exception as e:
-        print("Exception: ", e)
-    finally:
-        return app
-
-
-if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    return app_setup
