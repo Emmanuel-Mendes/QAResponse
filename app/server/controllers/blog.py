@@ -1,11 +1,17 @@
+"""
+Controller blog
+"""
 
-from flask import render_template, redirect, url_for, session, Blueprint
+from flask import Blueprint, redirect, render_template, session, url_for
 
 initial_blueprint = Blueprint("blog", __name__)
 
 
 @initial_blueprint.route("/blog")
 def blog():
+    """
+    Docstring for blog
+    """
     if "user" not in session:
         return redirect(url_for("login.login"))
 
@@ -14,6 +20,8 @@ def blog():
 
 @initial_blueprint.route("/blog")
 def logout():
+    """
+    Docstring for logout
+    """
     session.clear()
     return redirect(url_for("home.logout"))
-
