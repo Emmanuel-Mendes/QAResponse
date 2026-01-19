@@ -1,0 +1,29 @@
+[tool.ruff]
+# Ignora a pasta venv e outras pastas de sistema
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Seleciona as regras (E: Erros, F: Pyflakes/Sintaxe)
+select = ["E", "F", "W", "C90", "I"]
+# Ignora regras específicas se necessário
+ignore = ["F824"] # Exemplo: ignora o erro de global/nonlocal não utilizado
+
+[tool.pylint.master]
+# Ignora a venv para o Pylint
+ignore = ["venv", ".venv"]
+# Garante que o Pylint veja sua pasta 'app' como raiz de módulos
+init-hook = "import sys; import os; sys.path.append(os.path.join(os.getcwd(), 'app'))"
+
+[tool.pylint.messages_control]
+disable = [
+    "invalid-name",           # Para aceitar 'e' ou 'db'
+    "import-outside-toplevel", # Necessário para o padrão Factory do Flask
+    "too-many-return-statements" # Se você optar por não refatorar os retornos
+]

@@ -16,7 +16,6 @@ def create_user() -> None:
     """
     if request.method == "POST":
         response = register_user(data=request.form.to_dict())
-        print("Response: ", response.error_data)
         if response.error:
             flash(response.error_data, "error")
             return redirect(url_for("create.create_user"))
