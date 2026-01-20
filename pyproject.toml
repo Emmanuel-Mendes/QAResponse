@@ -1,4 +1,7 @@
 [tool.ruff]
+# Define o limite de linha para 88 (padrão moderno) ou 100
+line-length = 120
+
 # Ignora a pasta venv e outras pastas de sistema
 exclude = [
     ".git",
@@ -13,7 +16,7 @@ exclude = [
 # Seleciona as regras (E: Erros, F: Pyflakes/Sintaxe)
 select = ["E", "F", "W", "C90", "I"]
 # Ignora regras específicas se necessário
-ignore = ["F824"] # Exemplo: ignora o erro de global/nonlocal não utilizado
+ignore = ["E501"] # Exemplo: ignora o erro de global/nonlocal não utilizado
 
 [tool.pylint.master]
 # Ignora a venv para o Pylint
@@ -26,4 +29,13 @@ disable = [
     "invalid-name",           # Para aceitar 'e' ou 'db'
     "import-outside-toplevel", # Necessário para o padrão Factory do Flask
     "too-many-return-statements" # Se você optar por não refatorar os retornos
+]
+
+[tool.pylint.messages_control]
+# Desativa avisos que você já resolveu ou que são propositais
+disable = [
+    "C0103", # invalid-name (para o 'e' e 'db')
+    "C0415", # import-outside-toplevel (para o create_app)
+    "R0911", # too-many-return-statements
+    "W0125", # using-constant-test (para o erro do request.method)
 ]

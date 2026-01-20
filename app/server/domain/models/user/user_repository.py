@@ -2,8 +2,6 @@
 User repository
 """
 
-import uuid
-
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.server.database.user_data_source import db as database
@@ -20,9 +18,8 @@ class UserRepository(database.Model):
 
     __tablename__ = "users"
 
-    id = database.Column(
-        database.String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id = database.Column(database.String(36), primary_key=True)
+
     name = database.Column(database.String(50), nullable=True)
     password = database.Column(database.String(200), nullable=True)
     email = database.Column(database.String(75), unique=True, nullable=True)

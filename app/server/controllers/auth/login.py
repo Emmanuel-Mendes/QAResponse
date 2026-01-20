@@ -7,7 +7,7 @@ from functools import wraps
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 from app.server.domain.models.user.user_repository import UserService
-from app.server.domain.service.user_service import UserService as userServiceDto
+from app.server.domain.service.user_service import UserService as userService
 
 login_blueprint = Blueprint("login", __name__)
 
@@ -60,7 +60,7 @@ def login_request() -> redirect:
 
         verify_user = UserService.verifty_user_by_email(email)
         if verify_user.status and verify_user.data.user_id is not None:
-            password_validate = userServiceDto.verify_password_check(
+            password_validate = userService.verify_password_check(
                 passoword=password, hash_password=verify_user.data.password
             )
             if password_validate.status:
