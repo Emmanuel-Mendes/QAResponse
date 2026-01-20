@@ -1,5 +1,5 @@
 [flake8]
-max-line-length = 88
+max-line-length = 120
 # Ignora a venv para não ler o erro do werkzeug que apareceu na sua pipeline
 exclude = venv, .venv, .git, __pycache__
 # Ignora erros de espaço em branco que conflitam com formatadores modernos

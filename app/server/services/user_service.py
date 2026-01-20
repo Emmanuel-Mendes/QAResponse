@@ -45,9 +45,7 @@ def register_user(data: dict) -> Response:
         return Response.error(error="Telefone é obrigatório")
 
     password_is_none = password is None or password.strip() == ""
-    password_confirm_is_none = (
-        password_confirm is None or password_confirm.strip() == ""
-    )
+    password_confirm_is_none = password_confirm is None or password_confirm.strip() == " "
     if password_is_none or password_confirm_is_none:
         return Response.error(error="Senha é obrigatório")
 
