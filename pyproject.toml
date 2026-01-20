@@ -25,13 +25,6 @@ ignore = ["venv", ".venv"]
 init-hook = "import sys; import os; sys.path.append(os.path.join(os.getcwd(), 'app'))"
 
 [tool.pylint.messages_control]
-disable = [
-    "invalid-name",           # Para aceitar 'e' ou 'db'
-    "import-outside-toplevel", # Necessário para o padrão Factory do Flask
-    "too-many-return-statements" # Se você optar por não refatorar os retornos
-]
-
-[tool.pylint.messages_control]
 # Desativa avisos que você já resolveu ou que são propositais
 disable = [
     "C0103", # invalid-name (para o 'e' e 'db')
