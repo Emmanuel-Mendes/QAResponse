@@ -61,7 +61,7 @@ class User:
     def password(self):
         """
         Docstring for password
-        
+
         :param self: Description
         """
         return self.password
@@ -115,7 +115,7 @@ class User:
     def status_user(self):
         """
         Docstring for status_user
-        
+
         :param self: Description
         """
         return self.phone
@@ -138,7 +138,7 @@ class User:
     def user_id(self):
         """
         Docstring for user_id
-        
+
         :param self: Description
         """
         return self.phone
@@ -155,7 +155,7 @@ class User:
     @property
     def data_created(self):
         """
-        --- Getter and Setter data_created --- 
+        --- Getter and Setter data_created ---
         """
         return self.data_created
 
@@ -176,7 +176,7 @@ class User:
     def data_update(self):
         """
         Docstring for data_update
-        
+
         :param self: Description
         """
         return self.data_update
@@ -198,7 +198,7 @@ class User:
     def user_type(self):
         """
         Docstring for user_type
-        
+
         :param self: Description
         """
         return self.user_type
