@@ -2,7 +2,7 @@
 Home controller
 """
 
-from flask import Blueprint, redirect, render_template, session, url_for
+from flask import Blueprint, redirect, render_template, url_for
 
 from app.server.controllers.auth.login import login_required
 from app.server.utils.session import get_session
@@ -17,6 +17,7 @@ def home():
     Docstring for home
     """
     if get_session() is False:
+        print(get_session)
         return render_template("home/home.html")
     return redirect(url_for("login.login"))
 
@@ -27,5 +28,4 @@ def home_request():
     """
     Docstring for home_request
     """
-    print("Post: ")
-    print(session.get)
+    return None
