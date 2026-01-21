@@ -24,6 +24,7 @@ def register_user(data: dict) -> Response:
     :return: Description
     :rtype: Response
     """
+    print(data)
     user_obj = User
 
     user_obj.name = data["name"]
@@ -32,20 +33,21 @@ def register_user(data: dict) -> Response:
     password_confirm = data["password_confirm"]
     user_obj.phone = data["phone"]
 
-    name_is_none = user_obj.name is None or user_obj.name.strip() == ""
-    if name_is_none:
+    name = not user_obj.name
+    if name is True:
         return Response.error(error="Nome é obrigatório")
 
-    email_is_none = user_obj.email is None or user_obj.email.strip() == ""
+    email_is_none = not user_obj.email
     if email_is_none:
+        print("Entrou nesse segundo if")
         return Response.error(error="Email é obrigatório")
 
-    phone_is_none = user_obj.phone is None or user_obj.phone.strip() == ""
+    phone_is_none = not user_obj.phone
     if phone_is_none:
         return Response.error(error="Telefone é obrigatório")
 
-    password_is_none = password is None or password.strip() == ""
-    password_confirm_is_none = password_confirm is None or password_confirm.strip() == " "
+    password_is_none = not user_obj.password
+    password_confirm_is_none = not user_obj.password
     if password_is_none or password_confirm_is_none:
         return Response.error(error="Senha é obrigatório")
 
