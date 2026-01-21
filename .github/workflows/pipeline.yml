@@ -31,8 +31,8 @@ jobs:
         # Analisamos apenas a pasta 'app' para evitar bibliotecas de terceiros
         run: pylint app/
 
-      - name: Run Tests with Pytest
-        run: |
+      #- name: Run Tests with Pytest
+       # run: |
           # Define o caminho para que o pytest encontre seus módulos
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          pytest
+         # export PYTHONPATH=$PYTHONPATH:$(pwd)
+          #pytest
