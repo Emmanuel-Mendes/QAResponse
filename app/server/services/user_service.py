@@ -39,7 +39,6 @@ def register_user(data: dict) -> Response:
 
     email_is_none = not user_obj.email
     if email_is_none:
-        print("Entrou nesse segundo if")
         return Response.error(error="Email é obrigatório")
 
     phone_is_none = not user_obj.phone

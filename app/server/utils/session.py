@@ -15,6 +15,6 @@ def get_session(session_str: str = "user_id") -> bool:
     :rtype: bool
     """
     session_consult = session.get(session_str)
-    if session_consult is not None:
+    if session_consult != "":
         return True
     return False

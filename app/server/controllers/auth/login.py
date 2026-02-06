@@ -22,7 +22,6 @@ def login_required(kwords):
     @wraps(kwords)
     def decorated_function(*args, **kwargs):
         if "user_id" not in session:
-            print("Entrou nesse if")
             return redirect(url_for("login.login"))
         return kwords(*args, **kwargs)
 

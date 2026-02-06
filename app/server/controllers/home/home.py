@@ -16,8 +16,8 @@ def home():
     """
     Docstring for home
     """
-    if get_session() is False:
-        print(get_session)
+    user_session_validate = get_session()
+    if user_session_validate:
         return render_template("home/home.html")
     return redirect(url_for("login.login"))
 
