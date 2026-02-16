@@ -45,6 +45,7 @@ def create_app() -> Flask:
         from app.server.controllers.components.error import error_blueprint
         from app.server.controllers.home.create_project import new_project_blueprint
         from app.server.controllers.home.home import home_blueprint
+        from app.server.controllers.home.project import project_blueprint
 
         app_setup.register_blueprint(login_blueprint)
         app_setup.register_blueprint(create_blueprint)
@@ -53,6 +54,7 @@ def create_app() -> Flask:
         app_setup.register_blueprint(home_blueprint)
         app_setup.register_blueprint(new_project_blueprint)
         app_setup.register_blueprint(error_blueprint)
+        app_setup.register_blueprint(project_blueprint)
 
     except ImportError as import_error:
         print(f"Erro crítico ao importar Blueprints: {import_error}")

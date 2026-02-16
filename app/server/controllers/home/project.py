@@ -6,19 +6,19 @@ from flask import Blueprint, flash, redirect, render_template, request, session,
 
 from app.server.controllers.auth.login import login_required
 
-new_project_blueprint = Blueprint("home/project/create", __name__)
+project_blueprint = Blueprint("home/project", __name__)
 
 
-@new_project_blueprint.route("/home/project/create", methods=["GET", "POST"])
+@project_blueprint.route("/home/project", methods=["GET", "POST"])
 @login_required
-def create_get():
+def project():
     """
     Docstring for create_get
     """
     if session.get("user_id") is not None:
         if request.method == "POST":
-            return render_template("home/create_project.html")
-        return render_template("home/create_project.html")
+            return render_template("home/project.html")
+        return render_template("home/project.html")
 
     flash("Acesse sua conta", "dialog")
     return redirect(url_for("login.login"))
