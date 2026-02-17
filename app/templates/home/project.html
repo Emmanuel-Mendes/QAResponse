@@ -1,7 +1,7 @@
 {% extends 'base_index.html' %}
 
 {% block title %}
-    <title>Home - GitQa</title>
+    <title>Projetos - GitQa</title>
 {% endblock %}
 
 {% block extra_styles %}
@@ -12,76 +12,28 @@
      
 {% endblock %}
 
+{% block navbar%}
+{% endblock %}
 
 {% block content%}
-<div class="px-5 py-2 text-bg-dark border-bottom"> 
-    <div class="container"> 
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 
-            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"> 
-                <svg cless="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap">
 
-                    </use>
-                </svg> 
-            </a> 
-            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"> 
-                <li> 
-                    <a href="/home" class="nav-link text-secondary"> 
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
-                            <use xlink:href="#home">
+<div class="card-group">
 
-                            </use>
-                        </svg>
-                        Home
-                    </a> 
-                </li> 
-                <li> 
-                    <a href="/home/project" class="nav-link text-white"> 
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
-                            <use xlink:href="#speedometer2">
+    {% if usuario  %}
 
-                            </use>
-                        </svg>
-                        Projetos
-                    </a> 
-                </li> 
-                <li> 
-                    <a href="#" class="nav-link text-white"> 
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
-                            <use xlink:href="#table">
-
-                            </use>
-                        </svg>
-                        Orders
-                    </a> 
-                </li> 
-                <li> 
-                    <a href="#" class="nav-link text-white"> 
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
-                            <use xlink:href="#grid">
-                                
-                            </use>
-                        </svg>
-                        Products
-                    </a> 
-                </li> 
-                <li> 
-                    <a href="#" class="nav-link text-white"> 
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24" aria-hidden="true">
-                            <use xlink:href="#people-circle">
-
-                            </use>
-                        </svg>
-                        Customers
-                    </a> 
-                </li> 
-            </ul> 
-        </div> 
-    </div> 
-
+        {% for usuario in usuario %}
+            <div class="card mb-3 mx-3 my-5" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{ usuario.length }}</h5>
+                <h5 class="card-title">{{ usuario.nome }}</h5> 
+                <p class="card-text"><small class="text-body-secondary">{{ usuario.status }}</small></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
-
-
 
 <a href="/home/project/create"
    class="btn btn-dark d-flex align-items-center justify-content-center shadow-lg"
