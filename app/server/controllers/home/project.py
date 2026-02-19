@@ -18,14 +18,6 @@ def project():
     if session.get("user_id") is not None:
         if request.method == "POST":
             return render_template("home/project.html")
-        """
-        usuarios = [
-            {"nome": "Ana", "email": "ana@email.com", "status": "Ativo"},
-            {"nome": "Bruno", "email": "bruno@email.com", "status": "Inativo"},
-            {"nome": "Carla", "email": "carla@email.com", "status": "Ativo"},
-        ]
-        return render_template("home/project.html", titulo="Lista de Usuários", lista_usuarios=usuarios)
-        """
         return render_template("home/project.html")
     flash("Acesse sua conta", "dialog")
     return redirect(url_for("login.login"))
