@@ -15,14 +15,49 @@
 
 {% block content%}
 
-<div class=" align-content-center">
-    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;); " aria-label="breadcrumb" class=" breadcrumb bg-transparent align-content-center text-body text-center text-transparent">
-        <ol class="breadcrumb bg-transparent align-content-center text-center">
-            <li class="breadcrumb-item text-center"><a href="{{ url_for('home.home') }}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Novo repositório</li>
-        </ol>
-    </nav>
-</div>
+<form method="POST">
+    <h1 class="h3  my-3 mx-auto w-75 align-items-center mw-200 border-black align-content-center align-middle bg-white"> Novo projeto</h1>
+    <h5 class="h6  my-3 mx-auto w-75 align-items-center mw-200 border-black align-content-center align-middle bg-white text-secondary"> Criar novo repositório para testes manuais e/ou automatizados</h5>
+    
+    <div class="form-floating my-2 mx-auto w-75 align-items-center mw-200 border-secondary align-content-center align-middle bg-white"> 
+        <input name='project_name' type="text" class="form-control border-secondary" id="project_name" placeholder="Nome do projeto"> 
+        <label for="text">Nome do projeto</label> </div>             
+    </div>   
+    <div class="form-floating my-2 mx-auto w-75 align-items-center mw-200 align-content-center align-middle bg-white"> 
+        <input name='project_description' type="text" class="form-control pe-5 border-secondary" id="project_description" placeholder="Descrição"> 
+        <label for="text">Descrição</label>    
+    </div>
+
+    <div class="form-check  my-2 mx-auto w-75 align-items-center mw-200 align-content-center align-middle bg-white">
+        <input class="form-check-input" name="public_project" type="checkbox" value="{{ True }}" id="public_project">
+        <label class="form-check-label" for="checkDefault">
+            Deixar público?
+        </label>
+    </div>
+
+
+
+    <div  class="d-grid gap-2 col-2 mx-auto co">
+        <button type="submit" class="btn btn-primary w-100 py-2 bg-dark">Criar</button>
+    </div>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true)%}
+    {% if messages %}
+        {% for category, message in messages%}
+            <div aria-live="polite" aria-atomic="true" class="border-black">
+                <div class=" toast-container position-fixed bottom-0 end-0 p-3 border-black" id="toastPlacement">  
+                    <strong class="me-auto text-black">Erro ao criar projeto</strong>                  
+                    <div class="toast-header alert-info text-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="alert-{{ message if category == 'error' else message}}">
+                            <div class="me-auto text-danger">{{message}}</div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        {% endfor%}
+    {% endif%}
+{% endwith%}
 
 
 {% endblock %}

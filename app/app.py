@@ -38,10 +38,10 @@ def create_app() -> Flask:
     try:
         from app.server.controllers.auth.create_user import create_blueprint
         from app.server.controllers.auth.login import login_blueprint
+        from app.server.controllers.auth.logout import initial_blueprint
         from app.server.controllers.auth.recover_password import (
             recover_password_blueprint,
         )
-        from app.server.controllers.blog import initial_blueprint
         from app.server.controllers.components.error import error_blueprint
         from app.server.controllers.home.create_project import new_project_blueprint
         from app.server.controllers.home.home import home_blueprint
