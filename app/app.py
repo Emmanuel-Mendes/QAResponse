@@ -6,7 +6,7 @@ import logging
 
 from dotenv import load_dotenv
 from flask import Flask, redirect, url_for
-from flask_migrate import Migrate
+from flask_migrate import Migrate  # pylint: disable=import-error
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.config import Config
