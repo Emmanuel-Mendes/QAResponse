@@ -9,7 +9,7 @@ from app.server.domain.models.projects.projects import Project
 from app.server.helper.response import Response
 
 
-class ProjectByUserRepository(database.Model):
+class ProjectUseRepository(database.Model):
     """
     Docstring for ProjectRepository
     """
@@ -22,7 +22,7 @@ class ProjectByUserRepository(database.Model):
     created_user_project = database.Column(database.Boolean)
 
 
-class ProjectByUserServiceDatabase:
+class ProjectUserServiceDb:
     """
     Docstring for UserService
     """
@@ -39,7 +39,7 @@ class ProjectByUserServiceDatabase:
         :rtype: Response
         """
         try:
-            add_project = ProjectByUserRepository()
+            add_project = ProjectUseRepository()
 
             add_project.project_id = user_request.project_id
             add_project.created_user_project = user_request.created
@@ -65,7 +65,7 @@ class ProjectByUserServiceDatabase:
         :return: Description
         :rtype: Response
         """
-        get_user = ProjectByUserRepository()
+        get_user = ProjectUseRepository()
         user_get = get_user.query.filter_by(email=user).first()
         if user_get is not None:
             return Response.success(data=user_get)

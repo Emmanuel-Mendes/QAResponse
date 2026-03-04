@@ -67,7 +67,12 @@ def register_user(data: dict) -> Response:
 
 
 def get_user_informations(user_data: User) -> Response:
-    try:
-        print(user_data)
-    except Exception:
-        raise ValueError("Error em informações do usuário")
+    """
+    Docstring for register_user
+
+    :param data: Description
+    :type data: dict
+    :return: Description
+    :rtype: Response
+    """
+    print(user_data)
