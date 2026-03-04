@@ -60,7 +60,7 @@ class UserService:
             add_user.data_created = user_request.data_created
             add_user.data_update = user_request.data_update
             add_user.user_type = user_request.user_type
-            
+
             database.session.add(instance=add_user)
             database.session.commit()
             return Response.success(data=UserStatus.USER_CREATED.value)
