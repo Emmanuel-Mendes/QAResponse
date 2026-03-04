@@ -60,7 +60,7 @@ class UserService:
             add_user.data_created = user_request.data_created
             add_user.data_update = user_request.data_update
             add_user.user_type = user_request.user_type
-
+            
             database.session.add(instance=add_user)
             database.session.commit()
             return Response.success(data=UserStatus.USER_CREATED.value)
@@ -80,6 +80,24 @@ class UserService:
         """
         get_user = UserRepository()
         user_get = get_user.query.filter_by(email=user).first()
+        if user_get is not None:
+            return Response.success(data=user_get)
+
+        return Response.error(error="Usuário ou senha errado")
+
+    @classmethod
+    def verifty_user_by_user_id(cls, user: str) -> Response:
+        """
+        Docstring for verifty_user_by_email
+
+        :param self: Description
+        :param user: Description
+        :type user: User
+        :return: Description
+        :rtype: Response
+        """
+        get_user = UserRepository()
+        user_get = get_user.query.filter_by(user_id=user).first()
         if user_get is not None:
             return Response.success(data=user_get)
 

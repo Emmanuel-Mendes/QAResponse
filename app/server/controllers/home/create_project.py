@@ -5,6 +5,8 @@ create project controller
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 from app.server.controllers.auth.login import login_required
+from app.server.domain.models.user.user_repository import UserService
+from app.server.services.project_service import register_project
 
 new_project_blueprint = Blueprint("project/create", __name__)
 
@@ -17,14 +19,12 @@ def create_get():
     """
     if session.get("user_id") is not None:
         if request.method == "POST":
-            project_name = request.form.get("project_name")
-            public_name = bool(request.form.get("public_project"))
-            print(public_name)
-            project_name_is_none = project_name is None or project_name.strip() == ""
-            if project_name_is_none is True:
-                flash("Nome do projeto não pode ser vazio", "error")
+            user = UserService.verifty_user_by_user_id(user=session.get("user_id"))
+            response = register_project(data=request.form, user_information=user.data)
+            if response.status is False:
+                flash(response.error_data, "error")
                 return redirect(url_for("project/create.create_get"))
-            return redirect(url_for("project.project"))
+            return render_template("project.project_get_post")
         return render_template("home/create_project.html")
 
     flash("Acesse sua conta", "dialog")

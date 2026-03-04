@@ -14,8 +14,17 @@
 
 
 {% block content%}
-
+<div class="container p-3 mx-2 border-0 ">
+    <a href="{{ url_for('home.home') }}">
+        <button class=" bg-transparent border-0 align-content-center" >
+            <i class="fa-solid fa-house py-1 px-2"></i>
+            <h6 class="h6 font-monospace py-2">Inicio</h6>
+        </button>
+    </a>
+        
+</div>
 <form method="POST">
+
     <h1 class="h3  my-3 mx-auto w-75 align-items-center mw-200 border-black align-content-center align-middle bg-white"> Novo projeto</h1>
     <h5 class="h6  my-3 mx-auto w-75 align-items-center mw-200 border-black align-content-center align-middle bg-white text-secondary"> Criar novo repositório para testes manuais e/ou automatizados</h5>
     
@@ -47,10 +56,16 @@
         {% for category, message in messages%}
             <div aria-live="polite" aria-atomic="true" class="border-black">
                 <div class=" toast-container position-fixed bottom-0 end-0 p-3 border-black" id="toastPlacement">  
-                    <strong class="me-auto text-black">Erro ao criar projeto</strong>                  
+                    <strong class="me-auto text-black"> 
+                        <h6 class=" h6"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban-icon lucide-ban text-start text-lg-center align-content-start align-middle align-bottom"><circle cx="12" cy="12" r="10"/><path d="M4.929 4.929 19.07 19.071"/></svg>
+                            Error ao criar projeto
+                        </h6>
+
+                    </strong>                  
                     <div class="toast-header alert-info text-danger" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="alert-{{ message if category == 'error' else message}}">
-                            <div class="me-auto text-danger">{{message}}</div>
+                            <div class="me-auto" style="color:#ff0000;">{{message}}</div>
                         </div>
                     </div>                    
                 </div>

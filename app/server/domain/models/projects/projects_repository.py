@@ -5,37 +5,34 @@ Project repository
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.server.database.user_data_source import db as database
-from app.server.domain.models.user.user import User
-from app.server.enum.enum_user import UserStatus
+from app.server.domain.models.projects.projects import Project
 from app.server.helper.response import Response
 
 
-class UserRepository(database.Model):
+class ProjectRepository(database.Model):
     """
-    Docstring for UserRepository
+    Docstring for ProjectRepository
     """
 
     __tablename__ = "project"
 
     id = database.Column(database.Integer, primary_key=True)
-    name = database.Column(database.String(50), nullable=True)
-    password = database.Column(database.String(200), nullable=True)
-    email = database.Column(database.String(75), unique=True, nullable=True)
-    phone = database.Column(database.String(75), nullable=True)
-    status_user = database.Column(database.Boolean, nullable=True)
-    user_id = database.Column(database.String(100), unique=True, nullable=True)
-    data_created = database.Column(database.String(100), nullable=True)
-    data_update = database.Column(database.String(100), nullable=True)
-    user_type = database.Column(database.String(100), nullable=True)
+    project_title = database.Column(database.String(50), nullable=True)
+    project_description = database.Column(database.String(200), nullable=True)
+    project_id = database.Column(database.String(100), unique=True, nullable=True)
+    created_project = database.Column(database.Boolean)
+    data_created = database.Column(database.String(150), nullable=True)
+    data_update = database.Column(database.String(150), nullable=True)
+    data_publish = database.Column(database.Boolean, nullable=True)
 
 
-class UserService:
+class ProjectServiceDatabase:
     """
     Docstring for UserService
     """
 
     @classmethod
-    def add_user(cls, user_request: User) -> Response:
+    def add_project(cls, user_request: Project) -> Response:
         """
         Docstring for add_user
 
@@ -46,27 +43,27 @@ class UserService:
         :rtype: Response
         """
         try:
-            add_user = UserRepository()
+            add_project = ProjectRepository()
 
-            add_user.name = user_request.name
-            add_user.password = user_request.password
-            add_user.email = user_request.email
-            add_user.phone = user_request.phone
-            add_user.status_user = user_request.status_user
-            add_user.user_id = user_request.user_id
-            add_user.data_created = user_request.data_created
-            add_user.data_update = user_request.data_update
-            add_user.user_type = user_request.user_type
+            add_project.project_title = user_request.title
+            add_project.project_description = user_request.description
+            add_project.project_id = user_request.project_id
+            add_project.created_project = user_request.created
+            add_project.data_created = user_request.data_created
+            add_project.data_update = user_request.data_update
+            add_project.data_publish = user_request.publish
 
-            database.session.add(instance=add_user)
+            database.session.add(instance=add_project)
             database.session.commit()
-            return Response.success(data=UserStatus.USER_CREATED.value)
-
-        except SQLAlchemyError:
-            return Response.error(error="Usuário já cadastrado")
+            return Response.success(data="Success")
+        except TypeError as e:
+            print("TypeErro: ", e)
+        except SQLAlchemyError as e:
+            print("Error banco de dado: ", e)
+            return Response.error(error="Erro interno, tente novamente")
 
     @classmethod
-    def verifty_user_by_email(cls, user: User) -> Response:
+    def verifty_project_by_email(cls, user: Project) -> Response:
         """
         Docstring for verifty_user_by_email
 
@@ -76,9 +73,27 @@ class UserService:
         :return: Description
         :rtype: Response
         """
-        get_user = UserRepository()
+        get_user = ProjectRepository()
         user_get = get_user.query.filter_by(email=user).first()
         if user_get is not None:
             return Response.success(data=user_get)
         else:
             return Response.error(error="Usuário ou senha errado")
+
+    @classmethod
+    def verifty_project_by_project_id(cls, id_project: Project) -> Response:
+        """
+        Docstring for verifty_user_by_email
+
+        :param self: Description
+        :param user: Description
+        :type user: User
+        :return: Description
+        :rtype: Response
+        """
+        get_user = ProjectRepository()
+        user_get = get_user.query.filter_by(project_id=id_project.project_id).first()
+        if user_get is not None:
+            return Response.success(data=user_get)
+        else:
+            return Response.error(error="Projeto não localizado")

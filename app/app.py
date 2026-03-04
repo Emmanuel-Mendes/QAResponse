@@ -6,6 +6,7 @@ import logging
 
 from dotenv import load_dotenv
 from flask import Flask, redirect, url_for
+from flask_migrate import Migrate
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.config import Config
@@ -66,6 +67,7 @@ def create_app() -> Flask:
         # Altere para o caminho correto onde seus Models (User, etc) estão
         try:
             db.create_all()
+            Migrate(app=app_setup, db=db)
         except SQLAlchemyError as sql_error:
             logging.exception(sql_error)
 

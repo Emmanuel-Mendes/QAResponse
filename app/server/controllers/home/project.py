@@ -11,7 +11,8 @@ project_blueprint = Blueprint("project", __name__)
 
 @project_blueprint.route("/project", methods=["GET", "POST"])
 @login_required
-def project():
+def project_get_post():
+    print("Chegou nessa função")
     """
     Docstring for create_get
     """

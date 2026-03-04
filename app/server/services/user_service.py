@@ -24,7 +24,6 @@ def register_user(data: dict) -> Response:
     :return: Description
     :rtype: Response
     """
-    print(data)
     user_obj = User
 
     user_obj.name = data["name"]
@@ -65,3 +64,10 @@ def register_user(data: dict) -> Response:
     if insert_user.status:
         return Response.success(data="success")
     return Response.error(error=insert_user.error_data)
+
+
+def get_user_informations(user_data: User) -> Response:
+    try:
+        print(user_data)
+    except Exception:
+        raise ValueError("Error em informações do usuário")

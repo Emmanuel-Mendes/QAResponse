@@ -158,7 +158,7 @@ class User:
 
         :param self: Description
         """
-        return self.phone
+        return self.user_id
 
     @user_id.setter
     def user_id(self):
@@ -253,3 +253,4 @@ class User:
             raise ValueError("Tipo inválido para atualização da data") from e
         except Exception as e:
             raise ValueError("Error para atualização da data") from e
+
