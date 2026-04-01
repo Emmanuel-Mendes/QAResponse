@@ -23,14 +23,14 @@
 
 <div class="text-bg-dark d-flex p-2"> 
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"> 
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start navbar-expand-lg p-0"> 
             <img src= "{{ url_for('static', filename='icon.png') }}" alt="Icon" width="40" height="40" class="d-inline-block align-text-top my-md-1" >
         </div>
         
     </div>
 
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center navbar-expand-lg p-0">
             <h4 class=" col-15 col-lg-auto my-5 justify-content-center my-md-2 text-small text-center">GitQa</h1>
         </div>
     </div>
@@ -39,7 +39,7 @@
 
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-end text-center"> 
             
-            <ul class="nav col-15 col-lg-auto my-5 justify-content-center my-md-1 text-small text-center"> 
+            <ul class="nav col-15 col-lg-auto my-5 justify-content-center my-md-1 text-small text-center navbar-expand-lg p-0"> 
                 <li> 
                     <a class="nav-link 
                     {{'text-secondary fw-bold active' if request.endpoint == 'home.home' else 'text-white fw-bold'}}" 

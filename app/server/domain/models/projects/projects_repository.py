@@ -14,16 +14,19 @@ class ProjectRepository(database.Model):
     Docstring for ProjectRepository
     """
 
-    __tablename__ = "project"
+    __tablename__ = "projects"
 
-    id = database.Column(database.Integer, primary_key=True)
     project_title = database.Column(database.String(50), nullable=True)
     project_description = database.Column(database.String(200), nullable=True)
-    project_id = database.Column(database.String(100), unique=True, nullable=True)
+    project_id = database.Column(database.Uuid, unique=True, nullable=True, primary_key=True)
     created_project = database.Column(database.Boolean)
     data_created = database.Column(database.String(150), nullable=True)
     data_update = database.Column(database.String(150), nullable=True)
     data_publish = database.Column(database.Boolean, nullable=True)
+
+    user_memberships = database.relationship(
+        "ProjectUseRepository", back_populates="project", lazy="dynamic"
+    )
 
 
 class ProjectServiceDatabase:
@@ -79,21 +82,3 @@ class ProjectServiceDatabase:
             return Response.success(data=user_get)
         else:
             return Response.error(error="Usuário ou senha errado")
-
-    @classmethod
-    def verifty_project_by_project_id(cls, id_project: Project) -> Response:
-        """
-        Docstring for verifty_user_by_email
-
-        :param self: Description
-        :param user: Description
-        :type user: User
-        :return: Description
-        :rtype: Response
-        """
-        get_user = ProjectRepository()
-        user_get = get_user.query.filter_by(project_id=id_project.project_id).first()
-        if user_get is not None:
-            return Response.success(data=user_get)
-        else:
-            return Response.error(error="Projeto não localizado")

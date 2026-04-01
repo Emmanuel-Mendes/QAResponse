@@ -59,3 +59,21 @@ def project_bind_user(data) -> Response:
     if project_by_user.success:
         return Response.success(data="success")
     return Response.error(error=project_by_user.error_data)
+
+
+def consult_project_by_user(user) -> Response:
+    """
+    Docstring for register_user
+
+    :param data: Description
+    :type data: dict
+    :return: Description
+    :rtype: Response
+    """
+
+    project_by_user = ProjectUserServiceDb.verify_project_by_user_id(user=user)
+
+    print(project_by_user)
+
+    # return Response.success(data="success")
+    # return Response.error(error=insert_project.error_data)

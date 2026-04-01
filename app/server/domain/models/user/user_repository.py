@@ -20,16 +20,19 @@ class UserRepository(database.Model):
 
     __tablename__ = "users"
 
-    id = database.Column(database.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = database.Column(database.String(50), nullable=True)
     password = database.Column(database.String(200), nullable=True)
     email = database.Column(database.String(75), unique=True, nullable=True)
     phone = database.Column(database.String(75), nullable=True)
     status_user = database.Column(database.Boolean, nullable=True)
-    user_id = database.Column(database.String(100), unique=True, nullable=True)
+    user_id = database.Column(
+        database.Uuid, unique=True, nullable=True, primary_key=True, default=lambda: str(uuid.uuid4())
+    )
     data_created = database.Column(database.String(100), nullable=True)
     data_update = database.Column(database.String(100), nullable=True)
     user_type = database.Column(database.String(100), nullable=True)
+
+    project_memberships = database.relationship("ProjectUseRepository", back_populates="user", lazy="dynamic")
 
 
 class UserService:
@@ -86,7 +89,7 @@ class UserService:
         return Response.error(error="Usuário ou senha errado")
 
     @classmethod
-    def verifty_user_by_user_id(cls, user: str) -> Response:
+    def verifty_user_by_user_id(cls, user: User) -> Response:
         """
         Docstring for verifty_user_by_email
 
@@ -97,7 +100,7 @@ class UserService:
         :rtype: Response
         """
         get_user = UserRepository()
-        user_get = get_user.query.filter_by(user_id=user).first()
+        user_get = get_user.query.filter_by(email=user).first()
         if user_get is not None:
             return Response.success(data=user_get)
 

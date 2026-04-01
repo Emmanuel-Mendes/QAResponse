@@ -17,29 +17,44 @@
 
 {% block content%}
 
-<div class="card-group">
-
-    {% if usuario  %}
-
-        {% for usuario in usuario %}
-            <div class="card mb-3 mx-3 my-5" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">{{ usuario.length }}</h5>
-                <h5 class="card-title">{{ usuario.nome }}</h5> 
-                <p class="card-text"><small class="text-body-secondary">{{ usuario.status }}</small></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-</div>
 
 <a href="/project/create"
    class="btn btn-dark d-flex align-items-center justify-content-center shadow-lg"
    style="position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; border-radius: 50%; font-size: 24px; z-index: 1000;">
     <i class="fa-solid fa-plus"></i>
 </a>
+{% for project in projects %}
+    <div class="container my-5">
+        <div class="row p-1 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"> 
+            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3"> 
+                <h2 class="display-6 fw-bold lh-1 text-body-emphasis">{{project.title}}</h2> 
+                <p class="lead">{{project.description}}</p> 
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3"> 
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Acessar</button> 
+                </div> 
+            </div> 
+            <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg"> 
+                <img class="rounded-lg-3" src="/static/project_img.png" alt="" width="400" height="300"> 
+            </div> 
+        </div> 
+    </div> 
+    
+{% else %}
+    <div style="margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: #ffffff; font-family: Arial, sans-serif;"></body>
+        <div style="text-align: center; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 80%; max-width: 600px;">
+                
+                <img src="/static/project_erro.png" alt="Ícone de Erro" style="max-width: 55%; height: auto; display: block; margin: 0 auto 1px auto;">
+                
+                <h1 style="font-size: 20px; color: #ca0000; margin-top: 0; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px;">
+                Nenhum projeto encontrado
+                </h1>
+                
+                <p style="font-size: 18px; color: #666; margin: 0; line-height: 1.6;">
+                    Por favor, cadastre um no botão a baixo
+                </p>
+        </div>
+    </div>
+{% endfor %}
 
 </div>
     {% with messages = get_flashed_messages(with_categories=true)%}

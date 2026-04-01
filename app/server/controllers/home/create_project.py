@@ -24,7 +24,7 @@ def create_get():
             if response.status is False:
                 flash(response.error_data, "error")
                 return redirect(url_for("project/create.create_get"))
-            return render_template("project.project_get_post")
+            return redirect(url_for("project.project_get_post"))
         return render_template("home/create_project.html")
 
     flash("Acesse sua conta", "dialog")
