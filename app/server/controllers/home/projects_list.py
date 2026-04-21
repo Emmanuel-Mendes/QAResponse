@@ -10,28 +10,29 @@ from app.server.domain.models.projects.projects_repository_by_users import Proje
 project_blueprint = Blueprint("project", __name__)
 
 
-@project_blueprint.route("/project", methods=["GET", "POST"])
+@project_blueprint.route("/project", methods=["GET"])
 @login_required
 def project_get_post():
     """
     Docstring for create_get
     """
 
-    dados_usuarios = [
-        {"id": 1, "title": "Alice Souza", "description": "Desenvolvedora"},
-        {"id": 2, "title": "Bruno Lima", "description": "Designer"},
-        {"id": 3, "title": "Emmanuel", "description": "QA"},
-        {"id": 4, "title": "Thayná", "description": "Biologa"},
-    ]
     if session.get("user_id") is not None:
         if request.method == "POST":
             return render_template("home/project.html")
         user = session.get("user_id")
-        print(user)
-        get_project_by_user = ProjectUserServiceDb.verify_project_by_user_id(user=user)
+        get_project_by_user = ProjectUserServiceDb.verify_project_by_user_id(user_id=user)
 
-        print(get_project_by_user.data)
-
-        return render_template("home/project.html", projects=dados_usuarios)
+        return render_template("home/project.html", projects=get_project_by_user.data)
     flash("Acesse sua conta", "dialog")
     return redirect(url_for("login.login"))
+
+
+@project_blueprint.route("/project/<uuid:project_id>", methods=["POST"])
+@login_required
+def project_post(project_id):
+    """
+    Docstring for projects
+    """
+    print("Chegou nessa função")
+    return redirect(url_for("home.home"))

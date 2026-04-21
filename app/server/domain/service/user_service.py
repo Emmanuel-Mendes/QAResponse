@@ -37,7 +37,14 @@ class UserService:
         :return: Description
         :rtype: Response
         """
-        response = bcrypt.check_password_hash(password=passoword, pw_hash=hash_password)
-        if response:
-            return Response.success(data="success")
-        return Response.error(error="Usuário ou senha inválido")
+        try:
+            response = bcrypt.check_password_hash(password=passoword, pw_hash=hash_password)
+            print(response)
+            if response:
+                return Response.success(data="success")
+            return Response.error(error="Usuário ou senha inválido")
+        except TypeError:
+            return Response.error(error="Usuário ou senha inválido")
+            
+        except Exception:
+            return Response.error(error="Usuário ou senha inválido")

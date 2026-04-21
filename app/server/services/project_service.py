@@ -37,10 +37,15 @@ def register_project(data, user_information) -> Response:
     project_title = not project_obj.title
     if project_title is True:
         return Response.error(error="Título é obrigatório")
+    print(f"\n --- {datetime.now()} Registrando projeto --- \n")
 
     insert_project = ProjectServiceDatabase.add_project(user_request=project_obj)
+    print(f" --- {datetime.now()} Projeto registrado com {insert_project.__dict__} --- \n")
+
     if insert_project.status:
-        project_bind_user(project_obj)
+        print(f" --- {datetime.now()} Vinculando projeto a usuário --- \n")
+        result = project_bind_user(project_obj)
+        print(f" --- {datetime.now()} Resultado do vinculo {result.__dict__}--- \n")
         return Response.success(data="success")
     return Response.error(error=insert_project.error_data)
 
@@ -54,7 +59,9 @@ def project_bind_user(data) -> Response:
     :return: Description
     :rtype: Response
     """
+    print(f" --- {datetime.now()} Service vincula projeto a usuário --- \n")
     project_by_user = ProjectUserServiceDb.add_project_by_user(user_request=data)
+    print(f" --- {datetime.now()} Retorno do service: {project_bind_user.__dict__} --- \n")
 
     if project_by_user.success:
         return Response.success(data="success")
@@ -71,7 +78,7 @@ def consult_project_by_user(user) -> Response:
     :rtype: Response
     """
 
-    project_by_user = ProjectUserServiceDb.verify_project_by_user_id(user=user)
+    project_by_user = ProjectUserServiceDb.verify_project_by_user_id(user_id=user)
 
     print(project_by_user)
 

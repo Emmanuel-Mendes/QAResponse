@@ -3,6 +3,7 @@ User repository
 """
 
 import uuid
+from datetime import datetime
 
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -100,7 +101,10 @@ class UserService:
         :rtype: Response
         """
         get_user = UserRepository()
-        user_get = get_user.query.filter_by(email=user).first()
+
+        print(f"\n --- {datetime.now()} - Verificando usuário com id: {user} --- \n")
+        user_get = get_user.query.filter_by(user_id=user).first()
+        print(f"\n --- {datetime.now()} - Usuário localizado: {user_get} --- \n")
         if user_get is not None:
             return Response.success(data=user_get)
 

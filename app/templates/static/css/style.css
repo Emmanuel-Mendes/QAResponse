@@ -23,3 +23,89 @@
     box-shadow: none !important;
     outline: none !important;
 }
+
+/* Botões de Ícone (Notificação e Logout) */
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.icon-btn:hover {
+    color: var(--text-color);
+}
+
+/* Ponto de Notificação */
+.notification-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--notification-color);
+    border-radius: 50%;
+    border: 1px solid var(--bg-color); /* Separação visual */
+}
+
+/* Perfil do Usuário */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.user-profile:hover {
+    background-color: var(--search-bg);
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.dropdown-icon {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-left: 2px;
+}
+
+/* Botão de Logout */
+.logout-container {
+    border-left: 1px solid var(--border-color);
+    padding-left: 15px;
+}
+
+.logout-btn {
+    color: var(--text-muted);
+}
+
+.logout-btn:hover {
+    color: var(--notification-color); /* Destaque visual ao sair */
+}

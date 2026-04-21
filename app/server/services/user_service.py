@@ -62,6 +62,7 @@ def register_user(data: dict) -> Response:
     insert_user = UserService.add_user(user_request=user_obj)
 
     if insert_user.status:
+        print(f"\n --- {datetime.now()} - Usuário add: {insert_user.data} --- \n")
         return Response.success(data="success")
     return Response.error(error=insert_user.error_data)
 

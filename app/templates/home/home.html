@@ -25,6 +25,20 @@
     <i class="fa-solid fa-plus"></i>
 </a>
 
+<div class="container text-center p-4">
+  <div class="row justify-content-start">
+    <div class="col-4">
+        <img src="{{ url_for('static', filename='thayna.jpg') }}" alt="img" height="300px" width="300px" class="img-thumbnail rounded-1 text-center" style="border: 1px solid #495057";>
+    </div>
+    <div class="col-4 p-4">
+      <h3 class=" align-middle">{{username}}</h3>
+      <h6>teste</h6>
+    </div>
+  </div>
+</div>
+
+               
+
 </div>
     {% with messages = get_flashed_messages(with_categories=true)%}
         {% if messages %}

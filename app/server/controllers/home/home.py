@@ -18,7 +18,7 @@ def home():
     """
     user_session_validate = get_session()
     if user_session_validate:
-        return render_template("home/home.html")
+        return render_template("home/home.html", username="Emmanuel ")
     return redirect(url_for("login.login"))
 
 

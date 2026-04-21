@@ -4,7 +4,6 @@ External imports
 
 import dataclasses
 import os
-import secrets
 from datetime import timedelta
 
 from dotenv import load_dotenv
@@ -24,16 +23,12 @@ class Config:
     DB_HOST = os.getenv("DB_HOST")
     DB_PORT = os.getenv("DB_PORT")
 
-    SQLALCHEMY_DATABASE_URI = (
-        f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    SECRET_KEY = secrets.token_hex(16)
-    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "False") == "True"
     SESSION_COOKIE_HTTPONLY = os.getenv("SESSION_COOKIE_HTTPONLY")
     SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE")
 
-    PERMANENT_SESSION_LIFETIME = timedelta(
-        seconds=int(os.getenv("PERMANENT_SESSION_LIFETIME"))
-    )
+    PERMANENT_SESSION_LIFETIME = timedelta(seconds=int(os.getenv("PERMANENT_SESSION_LIFETIME")))

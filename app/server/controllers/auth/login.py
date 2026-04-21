@@ -41,36 +41,43 @@ def login_request() -> redirect:
     """
     Docstring for login_request
     """
-    if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        email_is_none = email is None or email.strip() == ""
-        password_is_none = password is None or password.strip() == ""
+    try:
+        if request.method == "POST":
+            email = request.form.get("email")
+            password = request.form.get("password")
+            email_is_none = email is None or email.strip() == ""
+            password_is_none = password is None or password.strip() == ""
 
-        if email_is_none and not password_is_none:
-            flash("Email não pode ser vazio", "error")
-            return redirect(url_for("login.login"))
-        if not email_is_none and password_is_none:
-            flash("Senha não pode ser vazio", "error")
-            return redirect(url_for("login.login"))
-        if email_is_none and password_is_none:
-            flash("Email e Senha não podem ser vazios", "error")
-            return redirect(url_for("login.login"))
+            if email_is_none and not password_is_none:
+                flash("Email não pode ser vazio", "error")
+                return redirect(url_for("login.login"))
+            if not email_is_none and password_is_none:
+                flash("Senha não pode ser vazio", "error")
+                return redirect(url_for("login.login"))
+            if email_is_none and password_is_none:
+                flash("Email e Senha não podem ser vazios", "error")
+                return redirect(url_for("login.login"))
 
-        verify_user = UserService.verifty_user_by_email(email)
-        if verify_user.status and verify_user.data.user_id is not None:
-            password_validate = userService.verify_password_check(
-                passoword=password, hash_password=verify_user.data.password
-            )
-            if password_validate.status:
-                session["user_id"] = verify_user.data.user_id
-                return redirect(url_for("home.home"))
+            verify_user = UserService.verifty_user_by_email(email)
+            if verify_user.status and verify_user.data.user_id is not None:
+                password_validate = userService.verify_password_check(
+                    passoword=password, hash_password=verify_user.data.password
+                )
+                print("Password response: ", password_validate.__dict__)
+                if password_validate.status is True:
+                    session["user_id"] = verify_user.data.user_id
+                    return redirect(url_for("home.home"))
+                session.clear()
+                flash("Erro ao realizar login, verifique usuário e senha", "error")
+                return redirect(url_for("login.login"))
             session.clear()
-            flash(password_validate.error, "error")
+            flash("Erro ao realizar login, verifique usuário e senha", "error")
             return redirect(url_for("login.login"))
-        session.clear()
-        flash(verify_user.error, "error")
+        flash("Erro ao realizar login, verifique usuário e senha", "error")
         return redirect(url_for("login.login"))
-    flash("Erro ao realizar login", "error")
-
-    return redirect(url_for("login.login"))
+    except TypeError:
+        flash("Erro ao realizar login, verifique usuário e senha", "error")
+        return redirect(url_for("login.login"))
+    except Exception:
+        flash("Erro ao realizar login, verifique usuário e senha", "error")
+        return redirect(url_for("login.login"))
