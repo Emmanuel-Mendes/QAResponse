@@ -2,6 +2,8 @@
 create project controller
 """
 
+import uuid
+
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
 from app.server.controllers.auth.login import login_required
@@ -30,9 +32,9 @@ def project_get_post():
 
 @project_blueprint.route("/project/<uuid:project_id>", methods=["POST"])
 @login_required
-def project_post(project_id):
+def project_post(project_id: uuid.UUID | None):
     """
     Docstring for projects
     """
-    print("Chegou nessa função")
+    print(project_id)
     return redirect(url_for("home.home"))
