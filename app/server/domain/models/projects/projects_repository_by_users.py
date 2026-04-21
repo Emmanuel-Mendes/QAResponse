@@ -53,15 +53,9 @@ class ProjectUserServiceDb:
         :rtype: Response
         """
         try:
-            print(f" --- {datetime.now()} Vinculando projeto a usuário --- \n")
-            new_user = user_request.user_id
-            print(f" --- {datetime.now()} user_id {new_user} --- \n")
-
-            new_project = user_request.project_id
-            print(f" --- {datetime.now()} project_id {new_project} --- \n")
-
-            user_link = ProjectUseRepository(user_id=new_user, project_id=new_project, is_author=user_request.created)
-            print(f" --- {datetime.now()} user_link: {user_link.__dict__}--- \n")
+            user_link = ProjectUseRepository(
+                user_id=user_request.user_id, project_id=user_request.project_id, is_author=user_request.created
+            )
 
             database.session.add(instance=user_link)
             database.session.commit()
