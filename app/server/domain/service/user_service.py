@@ -45,6 +45,5 @@ class UserService:
             return Response.error(error="Usuário ou senha inválido")
         except TypeError:
             return Response.error(error="Usuário ou senha inválido")
-            
-        except Exception:
+        except RuntimeError:
             return Response.error(error="Usuário ou senha inválido")
