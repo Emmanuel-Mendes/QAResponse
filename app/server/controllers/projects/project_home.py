@@ -11,12 +11,10 @@ projects_blueprint = Blueprint("projects", __name__)
 
 @projects_blueprint.route("/projects/<uuid:id>", methods=["GET"])
 @login_required
-def projects_get(id):
+def projects_get(id: any):
     """
     Docstring for projects_get
     """
-    print(id)
     if session.get("user_id") is not None:
-        print("Entrou nesse if")
         return render_template("project_home/project_home.html")
     return redirect(url_for("login.login"))
